@@ -13,6 +13,7 @@ import com.gregtechceu.gtceu.api.machine.feature.multiblock.IDisplayUIMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockControllerMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockDisplayText;
+import com.gregtechceu.gtceu.api.machine.trait.NotifiableItemStackHandler;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.ItemBusPartMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.gregtechceu.gtceu.utils.GTUtil;
@@ -31,7 +32,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -71,8 +71,8 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
     private boolean upgradesValid = true;
 
     private int damageTimer;
-    private List<IItemHandlerModifiable> inputBuses = List.of();
-    private List<IItemHandlerModifiable> outputBuses = List.of();
+    private List<NotifiableItemStackHandler> inputBuses = List.of();
+    private List<NotifiableItemStackHandler> outputBuses = List.of();
     @Nullable
     private TickableSubscription tickSubscription;
 
@@ -148,8 +148,8 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
     }
 
     private void refreshBuses() {
-        List<IItemHandlerModifiable> inputs = new ArrayList<>();
-        List<IItemHandlerModifiable> outputs = new ArrayList<>();
+        List<NotifiableItemStackHandler> inputs = new ArrayList<>();
+        List<NotifiableItemStackHandler> outputs = new ArrayList<>();
 
         for (IMultiPart part : getParts()) {
             if (part instanceof ItemBusPartMachine bus) {
@@ -173,7 +173,7 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
         boolean hasUsableUpgrade = false;
         boolean hasVoidUpgrade = false;
 
-        for (IItemHandlerModifiable inventory : inputBuses) {
+        for (NotifiableItemStackHandler inventory : inputBuses) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (stack.getItem() instanceof StorageUpgradeItem upgrade) {
@@ -209,7 +209,7 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
     }
 
     private void damageUpgrades() {
-        for (IItemHandlerModifiable inventory : inputBuses) {
+        for (NotifiableItemStackHandler inventory : inputBuses) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (stack.getItem() instanceof StorageUpgradeItem upgrade && !upgrade.isPermanent() &&
@@ -228,7 +228,7 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
     }
 
     private void pullFromInputs() {
-        for (IItemHandlerModifiable inventory : inputBuses) {
+        for (NotifiableItemStackHandler inventory : inputBuses) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (stack.isEmpty() || isUpgrade(stack)) {
@@ -254,9 +254,9 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
         }
 
         int amount = (int) Math.min(storedAmount, stored.getMaxStackSize());
-        for (IItemHandlerModifiable inventory : outputBuses) {
+        for (NotifiableItemStackHandler inventory : outputBuses) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
-                ItemStack remainder = inventory.insertItem(slot, stored.copyWithCount(amount), false);
+                ItemStack remainder = inventory.storage.insertItem(slot, stored.copyWithCount(amount), false);
                 int inserted = amount - remainder.getCount();
                 if (inserted > 0) {
                     storedAmount -= inserted;
@@ -299,9 +299,9 @@ public class ScalableStorageMachine extends MultiblockControllerMachine
         if (stored.isEmpty()) {
             return true;
         }
-        for (IItemHandlerModifiable inventory : outputBuses) {
+        for (NotifiableItemStackHandler inventory : outputBuses) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
-                if (inventory.insertItem(slot, stored.copyWithCount(1), true).isEmpty()) {
+                if (inventory.storage.insertItem(slot, stored.copyWithCount(1), true).isEmpty()) {
                     return true;
                 }
             }
