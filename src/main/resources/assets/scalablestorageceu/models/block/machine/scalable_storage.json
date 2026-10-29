@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "gtceu:machine",
+  "machine": "scalablestorageceu:scalable_storage",
+  "replaceable_textures": [
+    "all"
+  ],
+  "texture_overrides": {
+    "all": "gtceu:block/casings/solid/machine_casing_solid_steel"
+  },
+  "variants": {
+    "": {
+      "model": {
+        "parent": "scalablestorageceu:block/multiblock/scalable_storage",
+        "textures": {
+          "all": "gtceu:block/casings/solid/machine_casing_solid_steel"
+        }
+      }
+    }
+  }
+}

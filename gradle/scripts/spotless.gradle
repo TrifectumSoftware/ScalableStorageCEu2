@@ -1,6 +1,3 @@
-// Spotless auto-formatter
-// See https://github.com/diffplug/spotless/tree/main/plugin-gradle
-// Can be locally toggled via spotless:off/spotless:on comments
 spotless {
     encoding 'UTF-8'
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "scalablestorageceu:item/storage_upgrade_tier_3"
+  }
+}

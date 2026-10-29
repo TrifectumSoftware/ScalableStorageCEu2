@@ -1,0 +1,22 @@
+{
+  "itemGroup.scalablestorageceu": "Scalable Storage CEu",
+  "block.scalablestorageceu.scalable_storage": "Scalable Storage Silo",
+  "item.scalablestorageceu.storage_upgrade_tier_1": "Basic Storage Upgrade",
+  "item.scalablestorageceu.storage_upgrade_tier_2": "Advanced Storage Upgrade",
+  "item.scalablestorageceu.storage_upgrade_tier_3": "Elite Storage Upgrade",
+  "item.scalablestorageceu.void_upgrade": "Void Upgrade",
+  "tooltip.scalablestorageceu.storage_upgrade.1": "Increases storage capacity to 32,000,000 items.",
+  "tooltip.scalablestorageceu.storage_upgrade.2": "Increases storage capacity to 64,000,000 items.",
+  "tooltip.scalablestorageceu.storage_upgrade.3": "Increases storage capacity to 256,000,000 items.",
+  "tooltip.scalablestorageceu.storage_upgrade.durability": "Durability: %s%% (%s remaining)",
+  "tooltip.scalablestorageceu.void_upgrade": "Destroys overflow when storage and all export buses are full",
+  "scalablestorageceu.machine.scalable_storage.tooltip.0": "Stores enormous quantities of a single item type",
+  "scalablestorageceu.machine.scalable_storage.tooltip.1": "Install storage or void upgrades in an item import bus",
+  "scalablestorageceu.machine.scalable_storage.tier": "Tier %s storage upgrade active",
+  "scalablestorageceu.machine.scalable_storage.upgrade_depleted": "Storage upgrade depleted",
+  "scalablestorageceu.machine.scalable_storage.voiding": "Void mode active!",
+  "scalablestorageceu.machine.scalable_storage.empty": "Empty",
+  "scalablestorageceu.machine.scalable_storage.stored": "Stored: %s",
+  "scalablestorageceu.machine.scalable_storage.amount": "%s/%s items",
+  "tooltip.scalablestorageceu.upgrade.usage": "Place upgrades into an input slot to use them"
+}
